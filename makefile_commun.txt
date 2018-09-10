@@ -1,0 +1,64 @@
+########       AVR Project Makefile       ########
+#####                                        #####
+#####      Makefile produit et ecrit par     #####
+#####   	   l'equipe 76 pour				 #####
+#####           INF1995 - 2018               #####
+#####                                        #####
+#####         Inspire de Pat Deegan -        #####
+#####  Psychogenic Inc (www.psychogenic.com) #####
+##################################################
+
+
+MCU=atmega324pa
+# Niveau d'optimization (s (size opt), 1, 2, 3 ou 0 (off))
+OPTLEVEL=s
+# Programmer ID - Ne pas changer 
+# Liste complete des IDs disponible avec avrdude
+AVRDUDE_PROGRAMMERID=usbasp
+
+
+REMOVE=rm -f
+CC=avr-gcc
+
+# Archiver
+AR=avr-ar
+# Flags archiver
+ARFLAGS=rcs
+
+# Flags pour le compilateur en C
+CFLAGS=-I. -MMD $(INC) -g -mmcu=$(MCU) -O$(OPTLEVEL) \
+	-fpack-struct -fshort-enums             \
+	-funsigned-bitfields -funsigned-char    \
+	-Wall                                        
+# Flags pour le compilateur en C++
+CXXFLAGS=-fno-exceptions   
+# Fichier C
+CFILES=$(filter %.c, $(PRJSRC))
+# Fichier C++
+CPPFILES=$(filter %.cpp, $(PRJSRC))
+
+# Liste des .o a creer (remplace .c et .cpp par .o)
+OBJDEPS=$(CFILES:.c=.o) \
+	$(CPPFILES:.cpp=.o)
+	
+#pour copier le contenu d'un fichier objet vers un autre
+OBJCOPY=avr-objcopy
+#pour permettre le transfert vers le microcontroleur
+AVRDUDE=avrdude
+# HEXFORMAT -- format pour les fichiers produient .hex
+HEXFORMAT=ihex
+  
+# Flags linker librairies
+LDFLAGS=-Wl,-Map,$(TRG).map -mmcu=$(MCU)
+
+
+HEXROMTRG=$(PROJECTNAME).hex
+HEXTRG=$(HEXROMTRG) $(PROJECTNAME).ee.hex
+
+#####################################################
+# De C a objet
+%.o: %.c
+	$(CC) $(CFLAGS) -c $<
+# De C++ a objet
+%.o: %.cpp
+	$(CC) $(CFLAGS) $(CXXFLAGS) -c $<

@@ -1,0 +1,26 @@
+Code du projet final du cours INF1995
+-------------------------------------
+Auteures: Huyen Trang Dinh (1846776)
+          Maude Nguyen-The (1843896)
+          Helene Jiang     (1854909)
+
+Description: Ce projet consiste en 2 parties: la partie logicielle et la partie parcours.
+             Le robot doit contenir ces deux partie de facon effective. Donc, il doit etre
+             capable de suivre un mur, detecter des poteaux et changer de mur. Il doit
+             aussi pouvoir trasmettre des donnees sur son etat et recevoir des Instructions
+             de changement d'etat.
+
+/lib_dir : Repertoire contenant une librairie utilisee dans le code complet.
+
+/memoire : Repertoire contenant le code qui ecrit dans la memoire du robot les instructions
+           utiles au logiciel de diagnostic.
+
+/exec_dir: Repertoire contenant le code qui permet au robot de suivre un parcours et a tout
+           moment de basculer d'un mode a l'autre (logiciel ou parcours).
+
+Instructions : 1. Ouvrir le terminal dans le repertoire /projet
+               2. Compiler/executer et installer en entrant "bash ./comp_exec.sh" (sans guillemets)
+	           dans le terminal.
+
+Dans le cas ou des erreurs surviennent, compiler la librairie, puis make install la memoire, et enfin
+make install le programme dans exec_dir. Puis, run "bash ./clean.sh".
